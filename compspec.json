@@ -1,0 +1,90 @@
+{
+	"meta": {
+		"id": "fmri-pre",
+		"name": "fMRI preprocessing pipeline",
+		"version": "v1.0.0_20210820",
+		"repository": "https://github.com/trendscenter/Coinstac_fmri_computation.git",
+		"description": "This computation preprocesses 12-ch and 32-ch fMRI data using a SPM pipeline",
+		"tags": ["fmri", "preprocess"],
+		"preprocess": true
+	},
+	"computation": {
+		"type": "docker",
+		"dockerImage": "spanta/coinstac_fmriport_Bforge:v1.0.0_20210820",
+		"command": [
+			"python",
+			"\/computation\/scripts\/run_fmri.py"
+		],
+
+
+		"input": {
+
+
+
+			"standalone": {
+				"label": "Standalone",
+				"type": "boolean",
+				"default": true,
+				"order": 0
+			},
+
+			"data": {
+				"type": "string",
+				"label": "Path to fMRI data",
+"tooltip":"Data must be in format /path_to_fMRI_dir/sub*/session*/fMRI_dirs"
+			},
+
+			"num_vols_to_remove": {
+				"type": "number",
+				"label": "#Initial_vols to ignore",
+"tooltip":"Number of initial volumes to ignore"
+
+			},
+
+			"smoothing_x_mm": {
+				"type": "range",
+				"label": "Smoothing FWHM(mm) along x",
+				"default": 10,
+				"min": 1,
+				"max": 10,
+				"step": 1,
+				"tooltip": "Full width half maximum smoothing kernel value along x in mm",
+				"order": 3,
+				"group": "smoothing"
+			},
+			"smoothing_y_mm": {
+				"type": "range",
+				"label": "Smoothing FWHM(mm) along y",
+				"default": 10,
+				"min": 1,
+				"max": 10,
+				"step": 1,
+				"tooltip": "Full width half maximum smoothing kernel value along y in mm",
+				"order": 4,
+				"group": "smoothing"
+			},
+			"smoothing_z_mm": {
+				"type": "range",
+				"label": "Smoothing FWHM(mm) along z",
+				"default": 10,
+				"min": 1,
+				"max": 10,
+				"step": 1,
+				"tooltip": "Full width half maximum smoothing kernel value along z in mm",
+				"order": 5,
+				"group": "smoothing"
+			}
+
+		},
+
+
+		"output": {
+
+			"message": {
+				"type": "string",
+				"description": "Output message from fMRI preprocessing"
+			}
+		}
+
+	}
+}
