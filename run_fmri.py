@@ -216,97 +216,95 @@ def software_check():
 
 
 def args_parser(args):
-    if 'data_dir' in args:
-        template_dict['data_dir'] = args['data_dir']
-    if 'dist_corr' in args:
-        template_dict['dist_corr'] = args['dist_corr']
+    if 'dist_corr' in args['input']:
+        template_dict['dist_corr'] = args['input']['dist_corr']
 
-    if 'reorient_params_x_mm' in args:
-        template_dict['reorient_params_x_mm'] = float(args['reorient_params_x_mm'])
-    if 'reorient_params_y_mm' in args:
-        template_dict['reorient_params_y_mm'] = float(args['reorient_params_y_mm'])
-    if 'reorient_params_z_mm' in args:
-        template_dict['reorient_params_z_mm'] = float(args['reorient_params_z_mm'])
-    if 'reorient_params_pitch' in args:
-        template_dict['reorient_params_pitch'] = float((args['reorient_params_pitch']))
-    if 'reorient_params_roll' in args:
-        template_dict['reorient_params_roll'] = float((args['reorient_params_roll']))
-    if 'reorient_params_yaw' in args:
-        template_dict['reorient_params_yaw'] = float((args['reorient_params_yaw']))
-    if 'reorient_params_x_scaling' in args:
-        template_dict['reorient_params_x_scaling'] = float(args['reorient_params_x_scaling'])
-    if 'reorient_params_y_scaling' in args:
-        template_dict['reorient_params_y_scaling'] = float(args['reorient_params_y_scaling'])
-    if 'reorient_params_z_scaling' in args:
-        template_dict['reorient_params_z_scaling'] = float(args['reorient_params_z_scaling'])
-    if 'reorient_params_x_affine' in args:
-        template_dict['reorient_params_x_affine'] = float(args['reorient_params_x_affine'])
-    if 'reorient_params_y_affine' in args:
-        template_dict['reorient_params_y_affine'] = float(args['reorient_params_y_affine'])
-    if 'reorient_params_z_affine' in args:
-        template_dict['reorient_params_z_affine'] = float(args['reorient_params_z_affine'])
+    if 'reorient_params_x_mm' in args['input']:
+        template_dict['reorient_params_x_mm'] = float(args['input']['reorient_params_x_mm'])
+    if 'reorient_params_y_mm' in args['input']:
+        template_dict['reorient_params_y_mm'] = float(args['input']['reorient_params_y_mm'])
+    if 'reorient_params_z_mm' in args['input']:
+        template_dict['reorient_params_z_mm'] = float(args['input']['reorient_params_z_mm'])
+    if 'reorient_params_pitch' in args['input']:
+        template_dict['reorient_params_pitch'] = float((args['input']['reorient_params_pitch']))
+    if 'reorient_params_roll' in args['input']:
+        template_dict['reorient_params_roll'] = float((args['input']['reorient_params_roll']))
+    if 'reorient_params_yaw' in args['input']:
+        template_dict['reorient_params_yaw'] = float((args['input']['reorient_params_yaw']))
+    if 'reorient_params_x_scaling' in args['input']:
+        template_dict['reorient_params_x_scaling'] = float(args['input']['reorient_params_x_scaling'])
+    if 'reorient_params_y_scaling' in args['input']:
+        template_dict['reorient_params_y_scaling'] = float(args['input']['reorient_params_y_scaling'])
+    if 'reorient_params_z_scaling' in args['input']:
+        template_dict['reorient_params_z_scaling'] = float(args['input']['reorient_params_z_scaling'])
+    if 'reorient_params_x_affine' in args['input']:
+        template_dict['reorient_params_x_affine'] = float(args['input']['reorient_params_x_affine'])
+    if 'reorient_params_y_affine' in args['input']:
+        template_dict['reorient_params_y_affine'] = float(args['input']['reorient_params_y_affine'])
+    if 'reorient_params_z_affine' in args['input']:
+        template_dict['reorient_params_z_affine'] = float(args['input']['reorient_params_z_affine'])
 
-    if 'realign_fwhm' in args:
-        template_dict['realign_fwhm'] = args['realign_fwhm']
-    if 'realign_interp' in args:
-        template_dict['realign_interp'] = args['realign_interp']
-    if 'realign_quality' in args:
-        template_dict['realign_quality'] = args['realign_quality']
-    if 'realign_register_to_mean' in args:
-        template_dict['realign_register_to_mean'] = args['realign_register_to_mean']
-    if 'realign_separation' in args:
-        template_dict['realign_separation'] = args['realign_separation']
-    if 'realign_wrap' in args:
-        template_dict['realign_wrap'] = args['realign_wrap']
-    if 'realign_write_interp' in args:
-        template_dict['realign_write_interp'] = args['realign_write_interp']
-    if 'realign_write_mask' in args:
-        template_dict['realign_write_mask'] = args['realign_write_mask']
-    if 'realign_write_which' in args:
-        template_dict['realign_write_which'] = args['realign_write_which']
-    if 'realign_write_wrap' in args:
-        template_dict['realign_write_wrap'] = args['realign_write_wrap']
+    if 'realign_fwhm' in args['input']:
+        template_dict['realign_fwhm'] = args['input']['realign_fwhm']
+    if 'realign_interp' in args['input']:
+        template_dict['realign_interp'] = args['input']['realign_interp']
+    if 'realign_quality' in args['input']:
+        template_dict['realign_quality'] = args['input']['realign_quality']
+    if 'realign_register_to_mean' in args['input']:
+        template_dict['realign_register_to_mean'] = args['input']['realign_register_to_mean']
+    if 'realign_separation' in args['input']:
+        template_dict['realign_separation'] = args['input']['realign_separation']
+    if 'realign_wrap' in args['input']:
+        template_dict['realign_wrap'] = args['input']['realign_wrap']
+    if 'realign_write_interp' in args['input']:
+        template_dict['realign_write_interp'] = args['input']['realign_write_interp']
+    if 'realign_write_mask' in args['input']:
+        template_dict['realign_write_mask'] = args['input']['realign_write_mask']
+    if 'realign_write_which' in args['input']:
+        template_dict['realign_write_which'] = args['input']['realign_write_which']
+    if 'realign_write_wrap' in args['input']:
+        template_dict['realign_write_wrap'] = args['input']['realign_write_wrap']
 
-    if 'num_vols_to_remove' in args:
-        template_dict['num_vols_to_remove'] = args['num_vols_to_remove']
+    if 'num_vols_to_remove' in args['input']:
+        template_dict['num_vols_to_remove'] = args['input']['num_vols_to_remove']
 
-    if 'SBRef_file' in args:
-        template_dict['SBRef_file'] = args['SBRef_file']
+    if 'SBRef_file' in args['input']:
+        template_dict['SBRef_file'] = args['input']['SBRef_file']
 
-    if 'stc_flag' in args:
-        template_dict['stc_flag'] = args['stc_flag']
-    if 'slicetime_ref_slice' in args:
-        template_dict['slicetime_ref_slice'] = args['slicetime_ref_slice']
-    if 'slicetime_acq_order' in args:
-        template_dict['slicetime_acq_order'] = args['slicetime_acq_order']
+    if 'stc_flag' in args['input']:
+        template_dict['stc_flag'] = args['input']['stc_flag']
+    if 'slicetime_ref_slice' in args['input']:
+        template_dict['slicetime_ref_slice'] = args['input']['slicetime_ref_slice']
+    if 'slicetime_acq_order' in args['input']:
+        template_dict['slicetime_acq_order'] = args['input']['slicetime_acq_order']
 
-    if 'normalize_affine_regularization_type' in args:
-        template_dict['normalize_affine_regularization_type'] = args['normalize_affine_regularization_type']
-    if 'normalize_write_bounding_box' in args:
-        template_dict['normalize_write_bounding_box'] = args['normalize_write_bounding_box']
-    if 'normalize_write_interp' in args:
-        template_dict['normalize_write_interp'] = int(args['normalize_write_interp'])
-    if 'normalize_write_voxel_sizes' in args:
-        template_dict['normalize_write_voxel_sizes'] = args['normalize_write_voxel_sizes']
+    if 'normalize_affine_regularization_type' in args['input']:
+        template_dict['normalize_affine_regularization_type'] = args['input']['normalize_affine_regularization_type']
+    if 'normalize_write_bounding_box' in args['input']:
+        template_dict['normalize_write_bounding_box'] = args['input']['normalize_write_bounding_box']
+    if 'normalize_write_interp' in args['input']:
+        template_dict['normalize_write_interp'] = int(args['input']['normalize_write_interp'])
+    if 'normalize_write_voxel_sizes' in args['input']:
+        template_dict['normalize_write_voxel_sizes'] = args['input']['normalize_write_voxel_sizes']
 
-    if 'tpm_path' in args:
-        template_dict['tpm_path'] = args['tpm_path']
+    if 'tpm_path' in args['input']:
+        template_dict['tpm_path'] = args['input']['tpm_path']
 
-    if 'smoothing_x_mm' in args:
-        template_dict['FWHM_SMOOTH'][0] = float(args['smoothing_x_mm'])
-    if 'smoothing_y_mm' in args:
-        template_dict['FWHM_SMOOTH'][1] = float(args['smoothing_y_mm'])
-    if 'smoothing_z_mm' in args:
-        template_dict['FWHM_SMOOTH'][2] = float(args['smoothing_z_mm'])
+    if 'smoothing_x_mm' in args['input']:
+        template_dict['FWHM_SMOOTH'][0] = float(args['input']['smoothing_x_mm'])
+    if 'smoothing_y_mm' in args['input']:
+        template_dict['FWHM_SMOOTH'][1] = float(args['input']['smoothing_y_mm'])
+    if 'smoothing_z_mm' in args['input']:
+        template_dict['FWHM_SMOOTH'][2] = float(args['input']['smoothing_z_mm'])
 
-    if 'smoothing_implicit_masking' in args:
-        template_dict['implicit_masking'] = args['smoothing_implicit_masking']
+    if 'smoothing_implicit_masking' in args['input']:
+        template_dict['implicit_masking'] = args['input']['smoothing_implicit_masking']
 
-    if 'registration_template' in args:
-        if os.path.isfile(args['registration_template']) and (str(
+    if 'registration_template' in args['input']:
+        if os.path.isfile(args['input']['registration_template']) and (str(
                 ((nib.load(template_dict['tpm_path'])).shape)) == str(
-            ((nib.load(args['registration_template'])).shape))):
-            template_dict['tpm_path'] = args['registration_template']
+            ((nib.load(args['input']['registration_template'])).shape))):
+            template_dict['tpm_path'] = args['input']['registration_template']
 
 
 def convert_reorientparams_save_to_mat_script():
