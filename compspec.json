@@ -28,11 +28,26 @@
 				"order": 0
 			},
 
-			"data": {
-				"type": "string",
-				"label": "Path to fMRI data",
-"tooltip":"Data must be in format /path_to_fMRI_dir/sub*/session*/fMRI_dirs"
+			"SBRef_file": {
+				"type": "boolean",
+				"label": "SB reference file",
+"tooltip":"Does SB reference file exist in /path_to_fMRI_dir/sub*/session*/*[sS][bB][rR]*"
 			},
+			
+			"stc_flag": {
+				"type": "boolean",
+				"label": "Slice timing correction",
+"tooltip":"Perform slice timing correction. This step is done before realignment"
+			},
+			
+			
+			"dist_corr": {
+				"type": "boolean",
+				"label": "Distortion correction",
+"tooltip":"Perform distortion correction. Expects files in /path_to_fMRI_dir/sub*/session*/distortion_corr*"
+			},
+			
+			
 
 			"num_vols_to_remove": {
 				"type": "number",
