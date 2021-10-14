@@ -3,7 +3,7 @@
 		"id": "fmri-pre",
 		"name": "fMRI preprocessing pipeline",
 		"version": "v1.0.0_20210820",
-		"repository": "https://github.com/trendscenter/coinstac_fmriport_Bforge.git",
+		"repository": "https://github.com/trendscenter/coinstac_fmriport_bforge.git",
 		"description": "This computation preprocesses 12-ch and 32-ch fMRI data using a SPM pipeline",
 		"tags": ["fmri", "preprocess"],
 		"preprocess": true
