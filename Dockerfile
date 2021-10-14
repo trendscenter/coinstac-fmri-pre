@@ -1,5 +1,25 @@
 FROM trendscenter/aa-fmri-spm-tpm-epi:v1.0.0_20210820
 
+#-------------------------------------------------
+# Install fsl-6.0.3
+#-------------------------------------------------
+
+RUN yum install -y file
+
+RUN /computation/fslinstaller.py -V 6.0.3 -d /usr/local/fsl-6.0.3 -q
+
+RUN rm /usr/local/fsl-6.0.3/bin/eddy \
+    && ln -s /usr/local/fsl-6.0.3/bin/eddy_cuda9.1 /usr/local/fsl-6.0.3/bin/eddy
+
+#-------------------------------------------------
+# Set environment variables
+#-------------------------------------------------
+ENV FSLDIR=/usr/local/fsl-6.0.3
+ENV PATH=${FSLDIR}/bin
+RUN source ${FSLDIR}/etc/fslconf/fsl.sh
+ENV FSLOUTPUTTYPE=NIFTI_GZ  
+
+
 # Copy the current directory contents into the container
 COPY . /computation
 
