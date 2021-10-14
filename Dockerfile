@@ -5,7 +5,6 @@ FROM trendscenter/aa-fmri-spm-tpm-epi:v1.0.0_20210820
 #------------------------------------------------- 
 ENV FSLDIR=/usr/local/fsl-6.0.3
 ENV PATH=${FSLDIR}/bin
-RUN source ${FSLDIR}/etc/fslconf/fsl.sh
 ENV FSLOUTPUTTYPE=NIFTI_GZ
 
 
