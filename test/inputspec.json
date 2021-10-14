@@ -1,1 +1,1 @@
-{"standalone":{"value":true},"data":{"value":"fmri_input_data"},"num_vols_to_remove":{"value":5},"smoothing_x_mm":{"value":"10"},"smoothing_y_mm":{"value":"10"},"smoothing_z_mm":{"value":"10"}}
+{"standalone":{"value":true},"num_vols_to_remove":{"value":5},"smoothing_x_mm":{"value":"10"},"smoothing_y_mm":{"value":"10"},"smoothing_z_mm":{"value":"10"}}
