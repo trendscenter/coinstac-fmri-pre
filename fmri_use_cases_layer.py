@@ -704,8 +704,8 @@ def create_pipeline_nodes(**template_dict):
                 source_output='smoothed_files',
                 target_input=template_dict['fmri_output_dirname'] + '.@4')
         ])
-    with stdchannel_redirected(sys.stderr, os.devnull):
-        fmri_preprocess.write_graph(dotfilename='/tmp/graph.dot', graph2use='exec', format='png', simple_form=True)
+    
+    fmri_preprocess.write_graph(dotfilename='/tmp/graph.dot', graph2use='exec', format='png', simple_form=True)
     return [realign, slicetiming, datasink, fmri_preprocess]
 
 
