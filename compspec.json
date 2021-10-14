@@ -28,33 +28,173 @@
 				"order": 0
 			},
 
+				"num_vols_to_remove": {
+				"type": "number",
+				"label": "#Initial_vols to ignore",
+				"default": 0,
+"tooltip":"Number of initial volumes to ignore",
+					"order": 1
+
+			},
+			
 			"SBRef_file": {
 				"type": "boolean",
 				"label": "SB reference file",
-"tooltip":"Does SB reference file exist in /path_to_fMRI_dir/sub*/session*/*[sS][bB][rR]*"
+"tooltip":"Does SB reference file exist in /path_to_fMRI_dir/sub*/session*/*[sS][bB][rR]*",
+				"order": 2
 			},
 			
 			"stc_flag": {
 				"type": "boolean",
 				"label": "Slice timing correction",
-"tooltip":"Perform slice timing correction. This step is done before realignment"
+"tooltip":"Perform slice timing correction. This step is done before realignment",
+				"order": 3
 			},
 			
 			
 			"dist_corr": {
 				"type": "boolean",
 				"label": "Distortion correction",
-"tooltip":"Perform distortion correction. Expects files in /path_to_fMRI_dir/sub*/session*/distortion_corr*"
+"tooltip":"Perform distortion correction. Expects files in /path_to_fMRI_dir/sub*/session*/distortion_corr*",
+				"order": 4
 			},
 			
 			
 
-			"num_vols_to_remove": {
-				"type": "number",
-				"label": "#Initial_vols to ignore",
-"tooltip":"Number of initial volumes to ignore"
+		
+			
+			"reorient_params_x_mm": {
 
-			},
+        "type": "range",
+
+        "label": "x translation in mm",
+
+        "default": 0,
+
+        "min": -50,
+
+        "max": 50,
+
+        "step": 5,
+
+        "tooltip": "x translation in mm",
+
+        "order": 5,
+
+        "group": "reorientation"
+
+      },
+
+        "reorient_params_y_mm": {
+
+        "type": "range",
+
+        "label": "y translation in mm",
+
+        "default": 0,
+
+        "min": -50,
+
+        "max": 50,
+
+        "step": 5,
+
+        "tooltip": "y translation in mm",
+
+        "order": 6,
+
+        "group": "reorientation"
+
+      },
+
+        "reorient_params_z_mm": {
+
+        "type": "range",
+
+        "label": "z translation in mm",
+
+        "default": 0,
+
+        "min": -50,
+
+        "max": 50,
+
+        "step": 5,
+
+        "tooltip": "z translation in mm",
+
+        "order": 7,
+
+        "group": "reorientation"
+
+      },
+
+	      "reorient_params_pitch": {
+
+        "type": "range",
+
+        "label": "x rotation about pitch in degrees[-360,360]",
+
+        "default": 0,
+
+        "min": -360,
+
+        "max": 360,
+
+        "step": 5,
+
+        "tooltip": "x rotation about - {pitch} (degrees). Ex: 90",
+
+        "order": 8,
+
+        "group": "reorientation"
+
+      },
+
+        "reorient_params_roll": {
+
+        "type": "range",
+
+        "label": "y rotation about roll in degrees[-360,360]",
+
+        "default": 0,
+
+        "min": -360,
+
+        "max": 360,
+
+        "step": 5,
+
+        "tooltip": "y rotation about - {roll}  (degrees). Ex: 180",
+
+        "order": 9,
+
+        "group": "reorientation"
+
+      },
+
+        "reorient_params_yaw": {
+
+        "type": "range",
+
+        "label": "z rotation about yaw in degrees[-360,360]",
+
+        "default": 0,
+
+        "min": -360,
+
+        "max": 360,
+
+        "step": 5,
+
+        "tooltip": "z rotation about - {yaw}   (degrees). Ex: -45",
+
+        "order": 10,
+
+        "group": "reorientation"
+
+      },
+
 
 			"smoothing_x_mm": {
 				"type": "range",
@@ -64,7 +204,7 @@
 				"max": 10,
 				"step": 1,
 				"tooltip": "Full width half maximum smoothing kernel value along x in mm",
-				"order": 3,
+				"order": 11,
 				"group": "smoothing"
 			},
 			"smoothing_y_mm": {
@@ -75,7 +215,7 @@
 				"max": 10,
 				"step": 1,
 				"tooltip": "Full width half maximum smoothing kernel value along y in mm",
-				"order": 4,
+				"order": 12,
 				"group": "smoothing"
 			},
 			"smoothing_z_mm": {
@@ -86,7 +226,7 @@
 				"max": 10,
 				"step": 1,
 				"tooltip": "Full width half maximum smoothing kernel value along z in mm",
-				"order": 5,
+				"order": 13,
 				"group": "smoothing"
 			}
 
