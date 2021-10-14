@@ -218,6 +218,9 @@ def software_check():
 def args_parser(args):
     if 'dist_corr' in args['input']:
         template_dict['dist_corr'] = args['input']['dist_corr']
+        
+    if 'SBRef_file' in args['input']:
+        template_dict['SBRef_file'] = args['input']['SBRef_file']
 
     if 'reorient_params_x_mm' in args['input']:
         template_dict['reorient_params_x_mm'] = float(args['input']['reorient_params_x_mm'])
@@ -250,8 +253,9 @@ def args_parser(args):
         template_dict['realign_interp'] = args['input']['realign_interp']
     if 'realign_quality' in args['input']:
         template_dict['realign_quality'] = args['input']['realign_quality']
-    if 'realign_register_to_mean' in args['input']:
+    if 'realign_register_to_mean' in args['input'] and template_dict['SBRef_file']!=True:
         template_dict['realign_register_to_mean'] = args['input']['realign_register_to_mean']
+        
     if 'realign_separation' in args['input']:
         template_dict['realign_separation'] = args['input']['realign_separation']
     if 'realign_wrap' in args['input']:
@@ -268,8 +272,7 @@ def args_parser(args):
     if 'num_vols_to_remove' in args['input']:
         template_dict['num_vols_to_remove'] = args['input']['num_vols_to_remove']
 
-    if 'SBRef_file' in args['input']:
-        template_dict['SBRef_file'] = args['input']['SBRef_file']
+    
 
     if 'stc_flag' in args['input']:
         template_dict['stc_flag'] = args['input']['stc_flag']
