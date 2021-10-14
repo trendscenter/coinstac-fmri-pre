@@ -1,20 +1,21 @@
 FROM trendscenter/aa-fmri-spm-tpm-epi:v1.0.0_20210820
 
-#-------------------------------------------------
-# Install fsl-6.0.3
-#-------------------------------------------------
+# FSL installer appears to now be ready for use with version 6
+# eddy is also now included in FSL6
+RUN wget -q http://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py && \
+    chmod 775 fslinstaller.py && \
+    python /fslinstaller.py -d /opt/fsl -V 6.0.4 -q && \
+    rm -f /fslinstaller.py
+RUN which immv || ( echo "FSLPython not properly configured; re-running" && rm -rf /opt/fsl/fslpython && /opt/fsl/etc/fslconf/fslpython_install.sh -f /opt/fsl || ( cat /tmp/fslpython*/fslpython_miniconda_installer.log && exit 1 ) )
+RUN wget -qO- "https://www.nitrc.org/frs/download.php/5994/ROBEXv12.linux64.tar.gz//?i_agree=1&download_now=1" | \
+    tar zx -C /opt
 
-RUN yum install -y file
 
-RUN /computation/fslinstaller.py -V 6.0.3 -d /usr/local/fsl-6.0.3 -q
-
-RUN rm /usr/local/fsl-6.0.3/bin/eddy \
-    && ln -s /usr/local/fsl-6.0.3/bin/eddy_cuda9.1 /usr/local/fsl-6.0.3/bin/eddy
-
+    
 #-------------------------------------------------
 # Set environment variables
 #-------------------------------------------------
-ENV FSLDIR=/usr/local/fsl-6.0.3
+ENV FSLDIR=/opt/fsl
 ENV PATH=${FSLDIR}/bin
 RUN source ${FSLDIR}/etc/fslconf/fsl.sh
 ENV FSLOUTPUTTYPE=NIFTI_GZ  
