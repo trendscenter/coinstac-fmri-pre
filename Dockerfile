@@ -3,9 +3,9 @@ FROM trendscenter/aa-fmri-spm-tpm-epi:v1.0.0_20210820
 #-------------------------------------------------
 # Set environment variables
 #------------------------------------------------- 
-ENV FSLDIR=/usr/local/fsl-6.0.3 \
-  PATH=${FSLDIR}/bin \
-  FSLOUTPUTTYPE=NIFTI_GZ \
+ENV FSLDIR=/usr/local/fsl-6.0.3 
+ENV PATH=${FSLDIR}/bin 
+ENV FSLOUTPUTTYPE=NIFTI_GZ 
   
 
 
