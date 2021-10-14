@@ -833,7 +833,7 @@ def run_pipeline(write_dir,
                 nifti_file = nf
 
             # Attach SBRef, if specified in input.json file
-            if template_dict['SBRef_file'] is not None:
+            if template_dict['SBRef_file']:
                 # print(nifti_file)
                 nf = attachSBRef(fmri_out, smri_data, nifti_file, **template_dict)
                 # print()
@@ -843,7 +843,7 @@ def run_pipeline(write_dir,
                 nifti_file = nf
 
             # Run distortion correction, if specified in input.json file
-            if template_dict['dist_corr'] is not None:
+            if template_dict['dist_corr']:
                 nf = distortionCorrection(fmri_out, nifti_file, **template_dict)
                 # print()
                 # print(nifti_file)
@@ -897,7 +897,7 @@ def run_pipeline(write_dir,
             write_readme_files(write_dir, data_type, **template_dict)
 
             # Remove SBRef file, if specified in json file.
-            if template_dict['SBRef_file'] is not None:
+            if template_dict['SBRef_file'] ==False:
                 rm_SBRef(fmri_out, nifti_file, **template_dict)
 
     except Exception as e:
