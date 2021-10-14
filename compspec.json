@@ -10,7 +10,7 @@
 	},
 	"computation": {
 		"type": "docker",
-		"dockerImage": "spanta/coinstac_fmriport_bforge:v1.0.0_20210820",
+		"dockerImage": "spanta28/coinstac_fmriport_bforge:v1.0.0_20210820",
 		"command": [
 			"python",
 			"\/computation\/scripts\/run_fmri.py"
