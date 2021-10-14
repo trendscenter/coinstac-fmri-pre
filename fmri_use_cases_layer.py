@@ -897,7 +897,7 @@ def run_pipeline(write_dir,
             write_readme_files(write_dir, data_type, **template_dict)
 
             # Remove SBRef file, if specified in json file.
-            if template_dict['SBRef_file'] ==False:
+            if template_dict['SBRef_file']:
                 rm_SBRef(fmri_out, nifti_file, **template_dict)
 
     except Exception as e:
