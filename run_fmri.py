@@ -62,6 +62,7 @@ import fmri_use_cases_layer
 
 # Stop printing nipype.workflow info to stdout
 from nipype import logging
+
 logging.getLogger('nipype.workflow').setLevel('CRITICAL')
 
 # Create a dictionary to store all paths to softwares,templates & store parameters, names of output files
@@ -212,15 +213,14 @@ def software_check():
     return (spm.SPMCommand().version)
 
 
-
-
-
 def args_parser(args):
     if 'dist_corr' in args['input']:
         template_dict['dist_corr'] = args['input']['dist_corr']
-        
+
     if 'SBRef_file' in args['input']:
         template_dict['SBRef_file'] = args['input']['SBRef_file']
+        if template_dict['SBRef_file']:template_dict['realign_register_to_mean']=False
+
 
     if 'reorient_params_x_mm' in args['input']:
         template_dict['reorient_params_x_mm'] = float(args['input']['reorient_params_x_mm'])
@@ -253,9 +253,9 @@ def args_parser(args):
         template_dict['realign_interp'] = args['input']['realign_interp']
     if 'realign_quality' in args['input']:
         template_dict['realign_quality'] = args['input']['realign_quality']
-    if 'realign_register_to_mean' in args['input'] and template_dict['SBRef_file']!=True:
+    if 'realign_register_to_mean' in args['input'] and template_dict['SBRef_file'] != True:
         template_dict['realign_register_to_mean'] = args['input']['realign_register_to_mean']
-        
+
     if 'realign_separation' in args['input']:
         template_dict['realign_separation'] = args['input']['realign_separation']
     if 'realign_wrap' in args['input']:
@@ -271,8 +271,6 @@ def args_parser(args):
 
     if 'num_vols_to_remove' in args['input']:
         template_dict['num_vols_to_remove'] = args['input']['num_vols_to_remove']
-
-    
 
     if 'stc_flag' in args['input']:
         template_dict['stc_flag'] = args['input']['stc_flag']
@@ -343,6 +341,8 @@ if __name__ == "__main__":
         # Read json args
         args = json.loads(sys.stdin.read())
 
+
+
         # Parse args
         args_parser(args)
 
@@ -368,14 +368,11 @@ if __name__ == "__main__":
         read_data = args['state']['baseDirectory']
         output_dir = args['state']['outputDirectory']
 
-
-
-
-        for each_sub_session in glob.glob(read_data+'/*/*'):
+        for each_sub_session in glob.glob(read_data + '/*/*'):
             template_dict['subject'] = each_sub_session.split('/')[-2]
             template_dict['session'] = each_sub_session.split('/')[-1]
             template_dict['input_dir'] = each_sub_session
-            template_dict['data_dir']=glob.glob(each_sub_session+'/*[vV]*[0-9][0-9]*[rR]*[0-9][0-9]_[0-9]*')[0]
+            template_dict['data_dir'] = glob.glob(each_sub_session + '/*[vV]*[0-9][0-9]*[rR]*[0-9][0-9]_[0-9]*')[0]
 
             # Check if data has nifti files
             if os.path.isfile(glob.glob(os.path.join(
