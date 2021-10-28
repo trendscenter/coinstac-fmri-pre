@@ -1,4 +1,4 @@
-FROM trendscenter/aa-fmri-spm-tpm-epi:v1.0.0_20210820
+FROM spanta28/aa-fmri-spm-tpm-epi:v1.0.0_20210820
 
 #Necessary Library for running fslroi
 RUN yum install -y libquadmath-devel
