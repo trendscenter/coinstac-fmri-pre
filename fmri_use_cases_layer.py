@@ -5,7 +5,7 @@ This layer runs the pre-processing fmri pipeline in SPM12 based on the inputs
 from interface adapter layer. This layer uses entities layer to modify
 nodes of the pipeline as needed.
 """
-import contextlib,traceback,sys
+import contextlib,traceback,sys,pathlib
 
 
 @contextlib.contextmanager
@@ -96,7 +96,7 @@ def setup_pipeline(data='', write_dir='', data_type=None, **template_dict):
             # Runs the pipeline on each subject serially
             layout = BIDSLayout(data)
             smri_data = layout.get(
-                datatype='func', extensions='.nii.gz')
+                datatype='func', extension='.nii.gz')
             return run_pipeline(
                 write_dir,
                 smri_data,
@@ -778,6 +778,9 @@ def run_pipeline(write_dir,
 
         # Directory in which fmri outputs will be written
         fmri_out = os.path.join(write_dir, sub_id, session, 'func')
+        if data_type=='bids':
+            fmri_out = os.path.join(write_dir+'/derivatives/fmri_preprocessed_data', sub_id, session, 'func')
+            pathlib.Path(fmri_out).mkdir(parents=True, exist_ok=True)
 
         # print("fmri_out is", fmri_out)
         # print()
@@ -912,10 +915,13 @@ def run_pipeline(write_dir,
 
     if bool(error_log):
         output_message = " Error log:" + str(error_log)
-    return json.dumps({
-        "output": {
-            "message": output_message
-        },
-        "cache": {},
-        "success": True
-    })
+
+    template_dict['output_message']+=  output_message+':'+each_sub
+    return template_dict['output_message']
+    # return json.dumps({
+    #     "output": {
+    #         "message": output_message
+    #     },
+    #     "cache": {},
+    #     "success": True
+    # })
