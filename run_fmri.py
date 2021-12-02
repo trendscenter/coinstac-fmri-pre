@@ -21,6 +21,7 @@ success=True means program finished execution, despite the success or failure of
 This is to indicate to coinstac that program finished execution
 """
 import contextlib
+import shutil
 
 
 @contextlib.contextmanager
@@ -51,7 +52,8 @@ import ujson as json, argparse, getopt, re, traceback
 import warnings, os, glob, sys
 import nibabel as nib
 from math import radians as rad
-
+from bids import BIDSLayout
+#https://bids-standard.github.io/pybids/layout/index.html#loading-bids-datasets
 with warnings.catch_warnings():
     warnings.filterwarnings("ignore")
 
@@ -171,7 +173,8 @@ template_dict = {
         "\nFramewise Displacement of a time series is defined as the sum of the absolute values of the derivatives of the six realignment parametersi (Power et al, 2012). "
         "\nRotational displacements are converted from degrees to millimeters by calculating displacement on the surface of a sphere of radius 50 mm. "
         "\nFD = 0.15 to 0.2 mm: significant changes begin to be seen. "
-        "\nFD > 0.5 mm: marked correlation changes observed. "
+        "\nFD > 0.5 mm: marked correlation changes observed. ",
+    'output_message':''
 }
 """
 More info on keys in template_dict:
@@ -367,39 +370,78 @@ if __name__ == "__main__":
 
         read_data = args['state']['baseDirectory']
         output_dir = args['state']['outputDirectory']
+        #print(glob.glob('/input/local0/simulatorRun/*/*'),BIDSLayout(read_data),len(BIDSLayout(read_data).get(modality='func',type='bold')))
+        if (os.path.isfile(read_data+'/dataset_description.json')) and len(BIDSLayout(read_data).get(modality='func',type='bold'))>0 :
 
-        for each_sub_session in glob.glob(read_data + '/*/*'):
-            template_dict['subject'] = each_sub_session.split('/')[-2]
-            template_dict['session'] = each_sub_session.split('/')[-1]
-            template_dict['input_dir'] = each_sub_session
-            template_dict['data_dir'] = glob.glob(each_sub_session + '/*[vV]*[0-9][0-9]*[rR]*[0-9][0-9]_[0-9]*')[0]
-
-            # Check if data has nifti files
-            if os.path.isfile(glob.glob(os.path.join(
-                    # read_data, '*.nii*'))[0]) and os.access(output_dir, os.W_OK):
-                    template_dict['data_dir'], '*.nii*'))[0]) and os.access(output_dir, os.W_OK):
-                # nifti_file = glob.glob(os.path.join(read_data, '*.nii*'))[0]
+            layout = BIDSLayout(read_data)
+            subjects_list = layout.get_subjects()
+            sessions= layout.get_sessions()
+            output_dir = output_dir + '/derivatives/'
+            for each_sub in subjects_list:
+                if len(layout.get_sessions(subject=each_sub))>0:
+                    for each_sess in layout.get_sessions(subject=each_sub):
+                        # each_sub_sess_dir=os.path.join(read_data,'sub-'+each_sub,'ses-'+each_sess,'func')
+                        each_sub_sess_dir=read_data+'/sub-'+each_sub+'/ses-'+each_sess+'/func/'
+                        template_dict['subject'] = 'sub-'+each_sub
+                        template_dict['session'] = 'ses-'+each_sess
+                else:
+                    # each_sub_sess_dir = os.path.join(read_data, 'sub-'+each_sub, 'func')
+                    each_sub_sess_dir = read_data + '/sub-' + each_sub +'/func/'
+                    template_dict['subject'] = 'sub-'+each_sub
+                    template_dict['session'] = ''
+                template_dict['input_dir'] = each_sub_sess_dir
+                template_dict['data_dir'] = read_data + '/sub-' + each_sub +'/func/'
                 nifti_file = glob.glob(os.path.join(template_dict['data_dir'], '*.nii*'))[0]
 
-                computation_output = fmri_use_cases_layer.setup_pipeline(
+                # for each_file in glob.glob(read_data+'/*'):
+                #     shutil.copytree(each_file,output_dir)
+                template_dict['output_message'] = fmri_use_cases_layer.setup_pipeline(
                     data=nifti_file,
                     write_dir=output_dir,
                     data_type='nifti',
                     **template_dict)
-                sys.stdout.write(computation_output)
-            # Check if inputs are dicoms
-            elif os.path.isdir(read_data) and os.listdir(read_data) and os.access(
-                    output_dir, os.W_OK):
-                dicom_header_info = os.popen('strings' + ' ' + glob.glob(
-                    os.path.join(read_data, '*'))[0] + '|grep DICM').read()
-                if 'DICM' in dicom_header_info:
-                    computation_output = fmri_use_cases_layer.setup_pipeline(
-                        data=read_data,
-                        write_dir=output_dir,
-                        data_type='dicoms',
-                        **template_dict)
-                    sys.stdout.write(computation_output)
-            else:
-                sys.stdout.write("No data found")
+
+        #If the input dir has atleast one nifti file in sub/sess/fmri_dir/nifti_file format. Also add sub/fmri_dir/nifti_file format
+        elif len(glob.glob(read_data + '/*/*/*[vV]*[0-9][0-9]*[rR]*[0-9][0-9]_[0-9]*/*.nii*'))>0 and os.access(output_dir, os.W_OK):
+
+            for each_sub_session in glob.glob(read_data + '/*/*'):
+                template_dict['subject'] = each_sub_session.split('/')[-2]
+                template_dict['session'] = each_sub_session.split('/')[-1]
+                template_dict['input_dir'] = each_sub_session
+                template_dict['data_dir'] = glob.glob(each_sub_session + '/*[vV]*[0-9][0-9]*[rR]*[0-9][0-9]_[0-9]*')[0]
+
+
+                # nifti_file = glob.glob(os.path.join(read_data, '*.nii*'))[0]
+                nifti_file = glob.glob(os.path.join(template_dict['data_dir'], '*.nii*'))[0]
+
+                template_dict['output_message'] += fmri_use_cases_layer.setup_pipeline(
+                    data=nifti_file,
+                    write_dir=output_dir,
+                    data_type='nifti',
+                    **template_dict)
+
+
+                # Check if inputs are dicoms . This is not implemented/tested fully yet.
+                if os.path.isdir(read_data) and os.listdir(read_data) and os.access(
+                        output_dir, os.W_OK):
+                    dicom_header_info = os.popen('strings' + ' ' + glob.glob(
+                        os.path.join(read_data, '*'))[0] + '|grep DICM').read()
+                    if 'DICM' in dicom_header_info:
+                        template_dict['output_message'] += fmri_use_cases_layer.setup_pipeline(
+                            data=read_data,
+                            write_dir=output_dir,
+                            data_type='dicoms',
+                            **template_dict)
+
+        else:
+            template_dict['output_message']+="No data found"
+
+        sys.stdout.write(json.dumps({
+        "output": {
+            "message": template_dict['output_message']
+        },
+        "cache": {},
+        "success": True
+        }))
     except Exception as e:
         sys.stderr.write('Unable to pre-process data. Error_log:' + str(e) + str(traceback.format_exc()))
