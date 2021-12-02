@@ -916,7 +916,7 @@ def run_pipeline(write_dir,
     if bool(error_log):
         output_message = " Error log:" + str(error_log)
 
-    template_dict['output_message']+=  output_message+':'+each_sub
+    template_dict['output_message']=  template_dict['output_message']+' .'+output_message+':'+each_sub
     return template_dict['output_message']
     # return json.dumps({
     #     "output": {
