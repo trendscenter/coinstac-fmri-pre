@@ -414,7 +414,7 @@ if __name__ == "__main__":
                 # nifti_file = glob.glob(os.path.join(read_data, '*.nii*'))[0]
                 nifti_file = glob.glob(os.path.join(template_dict['data_dir'], '*.nii*'))[0]
 
-                template_dict['output_message'] += fmri_use_cases_layer.setup_pipeline(
+                template_dict['output_message'] = fmri_use_cases_layer.setup_pipeline(
                     data=nifti_file,
                     write_dir=output_dir,
                     data_type='nifti',
@@ -427,7 +427,7 @@ if __name__ == "__main__":
                     dicom_header_info = os.popen('strings' + ' ' + glob.glob(
                         os.path.join(read_data, '*'))[0] + '|grep DICM').read()
                     if 'DICM' in dicom_header_info:
-                        template_dict['output_message'] += fmri_use_cases_layer.setup_pipeline(
+                        template_dict['output_message'] = fmri_use_cases_layer.setup_pipeline(
                             data=read_data,
                             write_dir=output_dir,
                             data_type='dicoms',
