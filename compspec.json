@@ -1,413 +1,93 @@
 {
-	"meta": {
-		"id": "fmri-pre",
-		"name": "fMRI preprocessing pipeline",
-		"version": "v1.0.0_20210820",
-		"repository": "https://github.com/trendscenter/coinstac_fmriport_bforge",
-		"description": "This computation preprocesses 12-ch and 32-ch fMRI data using a SPM pipeline",
-		"tags": ["fmri", "preprocess"],
-		"preprocess": true
-	},
-	"computation": {
-		"type": "docker",
-		"dockerImage": "spanta28/coinstac_fmriport_bforge:v1.0.0_20210820",
-		"command": [
-			"python",
-			"\/computation\/run_fmri.py"
-		],
-
-
-		"input": {
-
-
-
-			"standalone": {
-				"label": "Standalone",
-				"type": "boolean",
-				"default": true,
-				"order": 0
-			},
-
-				"num_vols_to_remove": {
-				"type": "number",
-				"label": "#Initial_vols to ignore",
-				"default": 0,
-"tooltip":"Number of initial volumes to ignore",
-					"order": 1
-
-			},
-
-			"dist_corr": {
-				"type": "boolean",
-				"label": "Distortion correction",
-"tooltip":"Perform distortion correction. Expects files in /path_to_fMRI_dir/sub*/session*/distortion_corr*. Presently only works on APPA/PAAP",
-				"order": 4
-			},
-			
-			
-			
-			"SBRef_file": {
-				"type": "boolean",
-				"label": "SB reference file",
-"tooltip":"Does SB reference file exist in /path_to_fMRI_dir/sub*/session*/*[sS][bB][rR]*",
-				"order": 2
-			},
-			
-			"stc_flag": {
-				"type": "boolean",
-				"label": "Slice timing correction",
-"tooltip":"Perform slice timing correction. This step is done before realignment",
-				"order": 3
-			},
-			
-						"slicetime_ref_slice": {
-				"type": "number",
-				"label": "Slicetime core ref slice",
-"tooltip":"Reference slice for slice timing correction",
-				"order": 4
-			},
-
-"slicetime_acq_order": {
-				"type": "array",
-				"label": "slicetime_acq_order",
-"tooltip":"Slicetime acquisition order",
-				"order": 4
-			},
-
-
-
-
-						"realign_fwhm": {
-				"type": "number",
-				"label": "realign_fwhm",
-"tooltip":"realign_fwhm",
-"default":8,
-				"order": 4
-			},
-
-
-
-
-
-						"realign_interp": {
-				"type": "number",
-				"label": "realign_interpolation",
-"tooltip":"realign_interpolation",
-"default":2,
-				"order": 4
-			},
-
-
-						"realign_quality": {
-				"type": "number",
-				"label": "realign_quality",
-"tooltip":"realign_quality",
-"default":1,
-				"order": 4
-			},
-
-
-
-
-
-			"realign_register_to_mean": {
-				"type": "boolean",
-				"label": "realign_register_to_mean",
-"tooltip":"realign_register_to_mean",
-"default":true,
-				"order": 4
-			},
-
-
-						"realign_separation": {
-				"type": "number",
-				"label": "realign_separation",
-"tooltip":"realign_separation",
-"default":4,
-				"order": 4
-			},
-
-
-
-"realign_wrap": {
-				"type": "array",
-				"label": "realign_wrap",
-"tooltip":"realign_wrap",
-"default":[0,0,0],
-				"order": 4
-			},
-
-
-
-						"realign_write_interp": {
-				"type": "number",
-				"label": "realign_write_interp",
-"tooltip":"realign_write_interp",
-"default":4,
-				"order": 4
-			},
-
-
-			"realign_write_mask": {
-				"type": "boolean",
-				"label": "realign_write_mask",
-"tooltip":"realign_write_mask",
-"default":true,
-				"order": 4
-			},
-
-
-
-"realign_write_which": {
-				"type": "array",
-				"label": "realign_write_which",
-"tooltip":"realign_write_which",
-"default":[2, 1],
-				"order": 4
-			},
-
-
-
-"realign_write_wrap": {
-				"type": "array",
-				"label": "realign_write_wrap",
-"tooltip":"realign_write_wrap",
-"default":[0,0,0],
-				"order": 4
-			},
-
-
-
-"normalize_affine_regularization_type": {
-				"type": "string",
-				"label": "normalize_affine_regularization_type",
-"tooltip":"normalize_affine_regularization_type",
-"default": "mni",
-				"order": 4
-			},
-
-
-
-
-"normalize_write_bounding_box": {
-				"type": "array",
-				"label": "normalize_write_bounding_box",
-"tooltip":"normalize_write_bounding_box",
-"default":[[-78, -112, -70],[78, 76, 85]],
-				"order": 4
-			},
-
-
-						"normalize_write_interp": {
-				"type": "number",
-				"label": "normalize_write_interp",
-"tooltip":"normalize_write_interp",
-"default": 1,
-				"order": 4
-			},
-
-
-
-"normalize_write_voxel_sizes": {
-				"type": "array",
-				"label": "normalize_write_voxel_sizes",
-"tooltip":"normalize_write_voxel_sizes",
-"default":[3,3,3],
-				"order": 4
-			},
-
-
-
-
-
-
-		
-			
-			"reorient_params_x_mm": {
-
-        "type": "range",
-
-        "label": "x translation in mm",
-
-        "default": 0,
-
-        "min": -50,
-
-        "max": 50,
-
-        "step": 5,
-
-        "tooltip": "x translation in mm",
-
-        "order": 5,
-
-        "group": "reorientation"
-
+   "meta":{
+      "id":"fmri-pre",
+      "name":"fMRI Preprocessing Pipeline (New)",
+      "version":"v1.0.0_20210820",
+      "repository":"https://github.com/trendscenter/coinstac_fmriport_bforge",
+      "description":"This computation preprocesses 12-ch and 32-ch fMRI data using a SPM pipeline"
+   },
+   "computation":{
+      "type":"docker",
+      "dockerImage":"coinstac-fmri-pre",
+      "command":[
+         "python",
+         "\/computation\/run_fmri.py"
+      ],
+      "input":{
+				"data": {
+	        "label": "File Path",
+	        "type": "directory",
+	        "items": ["File Path"],
+					"default": "",
+	        "source": "member",
+	        "order": 0
+	      },
+         "standalone":{
+            "label":"Standalone",
+            "type":"boolean",
+            "default":true,
+            "order":0,
+						"source": "owner"
+         },
+         "num_vols_to_remove":{
+            "type":"number",
+            "required":true,
+            "label":"#Initial_vols to ignore",
+            "tooltip":"Number of initial volumes to ignore",
+						"source": "member"
+         },
+         "smoothing_x_mm":{
+            "type":"range",
+            "label":"Smoothing FWHM(mm) along x",
+            "default":10,
+            "min":1,
+            "max":10,
+            "step":1,
+            "tooltip":"Full width half maximum smoothing kernel value along x in mm",
+            "order":3,
+            "group":"smoothing",
+						"source": "owner"
+         },
+         "smoothing_y_mm":{
+            "type":"range",
+            "label":"Smoothing FWHM(mm) along y",
+            "default":10,
+            "min":1,
+            "max":10,
+            "step":1,
+            "tooltip":"Full width half maximum smoothing kernel value along y in mm",
+            "order":4,
+            "group":"smoothing",
+						"source": "owner"
+         },
+         "smoothing_z_mm":{
+            "type":"range",
+            "label":"Smoothing FWHM(mm) along z",
+            "default":10,
+            "min":1,
+            "max":10,
+            "step":1,
+            "tooltip":"Full width half maximum smoothing kernel value along z in mm",
+            "order":5,
+            "group":"smoothing",
+						"source": "owner"
+         }
       },
-
-        "reorient_params_y_mm": {
-
-        "type": "range",
-
-        "label": "y translation in mm",
-
-        "default": 0,
-
-        "min": -50,
-
-        "max": 50,
-
-        "step": 5,
-
-        "tooltip": "y translation in mm",
-
-        "order": 6,
-
-        "group": "reorientation"
-
+      "output": {
+        "covariates": {
+          "type": "array",
+          "items": [
+            "boolean",
+            "number"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "tooltip": "Output message from fMRI step"
+        }
       },
-
-        "reorient_params_z_mm": {
-
-        "type": "range",
-
-        "label": "z translation in mm",
-
-        "default": 0,
-
-        "min": -50,
-
-        "max": 50,
-
-        "step": 5,
-
-        "tooltip": "z translation in mm",
-
-        "order": 7,
-
-        "group": "reorientation"
-
-      },
-
-	      "reorient_params_pitch": {
-
-        "type": "range",
-
-        "label": "x rotation about pitch in degrees[-360,360]",
-
-        "default": 0,
-
-        "min": -360,
-
-        "max": 360,
-
-        "step": 5,
-
-        "tooltip": "x rotation about - {pitch} (degrees). Ex: 90",
-
-        "order": 8,
-
-        "group": "reorientation"
-
-      },
-
-        "reorient_params_roll": {
-
-        "type": "range",
-
-        "label": "y rotation about roll in degrees[-360,360]",
-
-        "default": 0,
-
-        "min": -360,
-
-        "max": 360,
-
-        "step": 5,
-
-        "tooltip": "y rotation about - {roll}  (degrees). Ex: 180",
-
-        "order": 9,
-
-        "group": "reorientation"
-
-      },
-
-        "reorient_params_yaw": {
-
-        "type": "range",
-
-        "label": "z rotation about yaw in degrees[-360,360]",
-
-        "default": 0,
-
-        "min": -360,
-
-        "max": 360,
-
-        "step": 5,
-
-        "tooltip": "z rotation about - {yaw}   (degrees). Ex: -45",
-
-        "order": 10,
-
-        "group": "reorientation"
-
-      },
-
-
-			"smoothing_x_mm": {
-				"type": "range",
-				"label": "Smoothing FWHM(mm) along x",
-				"default": 10,
-				"min": 1,
-				"max": 10,
-				"step": 1,
-				"tooltip": "Full width half maximum smoothing kernel value along x in mm",
-				"order": 11,
-				"group": "smoothing"
-			},
-			"smoothing_y_mm": {
-				"type": "range",
-				"label": "Smoothing FWHM(mm) along y",
-				"default": 10,
-				"min": 1,
-				"max": 10,
-				"step": 1,
-				"tooltip": "Full width half maximum smoothing kernel value along y in mm",
-				"order": 12,
-				"group": "smoothing"
-			},
-			"smoothing_z_mm": {
-				"type": "range",
-				"label": "Smoothing FWHM(mm) along z",
-				"default": 10,
-				"min": 1,
-				"max": 10,
-				"step": 1,
-				"tooltip": "Full width half maximum smoothing kernel value along z in mm",
-				"order": 13,
-				"group": "smoothing"
-			},
-
-			"smoothing_implicit_masking": {
-				"type": "boolean",
-				"label": "smoothing_implicit_masking",
-"tooltip":"smoothing_implicit_masking",
-"default": false,
-				"order": 4
-			}
-
-		},
-
-
-		"output": {
-
-			"message": {
-				"type": "string",
-				"description": "Output message from fMRI preprocessing"
-			}
-		}
-
-	}
+			"display": {
+	      "type": "string"
+	    }
+   }
 }
