@@ -368,7 +368,7 @@ if __name__ == "__main__":
         if spm_check != template_dict['spm_version']:
             raise EnvironmentError("spm unable to start in fmri docker")
 
-        read_data = args['state']['baseDirectory']
+        read_data = args['state']['baseDirectory'] + args['input']['data']
         output_dir = args['state']['outputDirectory']
         #print(glob.glob('/input/local0/simulatorRun/*/*'),BIDSLayout(read_data),len(BIDSLayout(read_data).get(modality='func',type='bold')))
         if (os.path.isfile(read_data+'/dataset_description.json')) and len(BIDSLayout(read_data).get(modality='func',type='bold'))>0 :
